@@ -1,0 +1,69 @@
+ ----------------------------------------- 
++                                         +
++       EQUALISED ODDS FOR CLASS 2        +
++_________________________________________+
+
+Solution space size: 101
+False positive: 0.0646744
+True positives: 0.58063762
+Target False positive: 0.11558941
+Target True positives: 0.71282212
+Max profit thresholds: 45.5
+Differences: FP (0.05091501) TP (0.1321845) EO(0.1321845)
+Accuracy: 73.3823%
+Percent of max profit: 100
+------------------------------------------
+
+Fixed probability (Hardt et al)
+Violates individual fairness constraints
+FP: 0.11559376 TP: 0.71283062 Lower T: 37.0 Upper T: 37.5 prob: 0.49
+Differences: FP (4.35e-06) TP (8.5e-06) EO(8.5e-06)
+Accuracy: 78.6932%
+------------------------------------------
+Fixed probability (Hardt et al) and max profit top threshold
+Violates individual fairness constraints
+FP: 0.11643897 TP: 0.71285344 Lower T: 37.0 Upper T: 45.5 prob: 0.95
+Differences: FP (0.00084956) TP (3.132e-05) EO(0.00084956)
+Accuracy: 78.658%
+------------------------------------------
+Linear function
+FP: 0.11657045 TP: 0.71272983 Lower T: 34.0 Upper T: 40.5 prob: 0.53
+Differences: FP (0.00098104) TP (9.229e-05) EO(0.00107332)
+Accuracy: 78.6453%
+------------------------------------------
+linear function with max profit top threshold
+FP: 0.11557086 TP: 0.71196084 Lower T: 36.5 Upper T: 45.5 prob: 0.93
+Differences: FP (1.855e-05) TP (0.00086128) EO(0.00086128)
+Accuracy: 78.6448%
+------------------------------------------
+Smooth boundary function
+FP: 0.11634672 TP: 0.711914 Lower T: 32.0 Upper T: 42.0 prob: 0.49
+Differences: FP (0.00075731) TP (0.00090812) EO(0.00166543)
+Accuracy: 78.6086%
+------------------------------------------
+smooth boundary function with max profit top threshold
+FP: 0.11599636 TP: 0.71251864 Lower T: 35.5 Upper T: 45.5 prob: 0.84
+Differences: FP (0.00040694) TP (0.00030348) EO(0.00040694)
+Accuracy: 78.6581%
+------------------------------------------
+Pieceswise smooth function
+FP: 0.11715744 TP: 0.71277787 Lower T: 33.0 Upper T: 41.5 prob: 0.52
+Differences: FP (0.00156803) TP (4.424e-05) EO(0.00161227)
+Accuracy: 78.6227%
+------------------------------------------
+piecewise smooth function with max profit top threshold
+FP: 0.11618088 TP: 0.71323 Lower T: 36.5 Upper T: 45.5 prob: 0.93
+Differences: FP (0.00059147) TP (0.00040788) EO(0.00059147)
+Accuracy: 78.6905%
+------------------------------------------
+Smooth function p->[0.4, 0.6]
+FP: 0.11650029 TP: 0.71288502 Lower T: 33.5 Upper T: 41.5 prob: 0.558
+Differences: FP (0.00091087) TP (6.29e-05) EO(0.00097377)
+Accuracy: 78.6571%
+------------------------------------------
+smooth function p->[0.4,0.6] with max profit top threshold
+FP: 0.11708084 TP: 0.71128053 Lower T: 31.5 Upper T: 45.5 prob: 0.594
+Differences: FP (0.00149143) TP (0.00154159) EO(0.00154159)
+Accuracy: 78.5409%
+------------------------------------------
+stop
