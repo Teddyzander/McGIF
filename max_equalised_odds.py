@@ -38,7 +38,7 @@ show = False
 # compas or credit risk?
 
 # save print statements to log file
-filename = "TEST" + str(A) + "_with_max_acc_and_ifair"
+filename = "tester" + str(A) + "_with_max_acc_and_ifair"
 sys.stdout = Tee(open("logs/" + filename + ".txt", "w"), sys.stdout)
 
 # get data
