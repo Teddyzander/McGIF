@@ -138,7 +138,7 @@ def eo_optimiser(probs, default_rate, scores, prob_mass, FP_con, TP_con, prob_fu
                                       prob_func(scores[T0], scores[T1], probs[p], inflex - delta))
                     if (LB_diff1 < eps and UB_diff1 < eps and LB_diff2 < eps and UB_diff2 < eps and
                         LB_diff3 < eps and UB_diff3 < eps and LB_diff4 < eps and UB_diff4 < eps):
-                        sols[p, T0, T1] = np.abs(FPR - FP_con) + np.abs(TPR - TP_con)
+                        sols[p, T0, T1] = np.max([np.abs(FPR - FP_con), np.abs(TPR - TP_con)])
                         best_FP[p, T0, T1] = FPR
                         best_TP[p, T0, T1] = TPR
                         best_FN[p, T0, T1] = FNR
@@ -156,13 +156,13 @@ def eo_optimiser(probs, default_rate, scores, prob_mass, FP_con, TP_con, prob_fu
 
     ind = np.unravel_index(np.argmin(sols, axis=None), sols.shape)
     ind_test = np.argwhere(sols <= 0.005)
-    temp = -np.infty
+    temp = np.infty
     index = 0
     for i in ind_test:
-        if profit[i[0], i[1], i[2]] > temp:
+        if scores[ind[2]] - scores[ind[1]] < temp:
             index = (i[0], i[1], i[2])
             temp = acc[index]
-    ind = ind
+    # ind = index
     best_FP = best_FP[ind]
     best_TP = best_TP[ind]
     best_FN = best_FN[ind]
