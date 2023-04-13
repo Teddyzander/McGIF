@@ -5,12 +5,12 @@ import sys
 import matplotlib.pyplot as plt
 import warnings
 
-T0s = [22.5, 17.0, 15.0, 17.0, 16.0]
-T1s = [35.0, 31.5, 35.5, 33.0, 36.0]
-probs = [0.78, 0.44, 0.51, 0.49, 0.54]
+T0s = [36.5, 33.0, 28.0, 29.5, 29.0]
+T1s = [51.5, 56.5, 55.0, 49.0, 55.0]
+probs = [0.75, 0.70, 0.55, 0.45, 0.57]
 curves = [0, funcs.phi, funcs.phi_quad, funcs.phi_cube, funcs.phi_smooth]
 scores = np.linspace(0, 100, 201)
-labels = ['Fixed', 'Linear', 'Quadratic', 'Cubic', r'$4^{th}$ Order']
+labels = ['fixed', 'linear', 'quadratic', 'cubic', r'$4^{th}$ order']
 nrow = 5
 ncol = 1;
 fig, axs = plt.subplots(nrows=nrow, ncols=ncol, sharey=True, sharex=True, figsize=(4/1.4, 6/1.4), dpi=180)
@@ -39,6 +39,6 @@ for i in range(0, len(T0s)):
 
 plt.xlim([0, 100])
 plt.ylim([0, 1.00001])
-plt.xlabel(r'Credit Scores $r$')
-fig.text(0.04, 0.5, r'$\mathbb{P}\{f(X)=1|A=black, R=r\}$', va='center', rotation='vertical')
+plt.xlabel(r'Credit Score')
+fig.text(0.04, 0.5, r'$\mathbb{P}\{f(X)=1|A=Asian, R=r\}$', va='center', rotation='vertical')
 plt.show()

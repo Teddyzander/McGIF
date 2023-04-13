@@ -96,16 +96,20 @@ for i in range(0,4):
         FP_con = testf
         TP_con = testt
 
+np.save('FPR.npy', FPR)
+np.save('TPR.npy', TPR)
+np.save('FP_con.npy', [FP_con])
+np.save('TP_con.npy', [TP_con])
 style = ["dashed", "dotted", "dashdot", "solid"]
 groups = ["white", "black", "Hispanic", "Asian"]
 colours = ['darkblue', 'red', 'green', 'purple']
 x = np.linspace(0, 1, len(FPR[:, 0]))
 y = np.linspace(1, 0, len(FPR[:, 0]))
 plt.figure(figsize=(5, 5), dpi=150)
-plt.rcParams['axes.spines.left'] = False
+plt.rcParams['axes.spines.right'] = False
 plt.rcParams['axes.spines.top'] = False
-plt.rcParams['ytick.left'] = plt.rcParams['ytick.labelleft'] = False
-plt.rcParams['ytick.right'] = plt.rcParams['ytick.labelright'] = True
+#plt.rcParams['ytick.left'] = plt.rcParams['ytick.labelleft'] = False
+#plt.rcParams['ytick.right'] = plt.rcParams['ytick.labelright'] = True
 for a in range(0, 4):
     plt.plot(FPR[:, a], TPR[:, a], linewidth=1, linestyle=style[a], label=r"$A={}$".format(groups[a]), color=colours[a])
     plt.fill_between(FPR[:, a], TPR[:, a], alpha=0.15, color=colours[a])
@@ -113,16 +117,16 @@ for a in range(0, 4):
 
 plt.plot(x, x, linestyle='--', color='black', linewidth=0.5)
 # plt.plot(x, y, linestyle='--', color='black', linewidth=0.5)
-#plt.xlabel(r"$\mathbb{P}\{\hat{Y}=1|Y=0, A=a\}$")
-#plt.ylabel(r"$\mathbb{P}\{\hat{Y}=1|Y=1, A=a\}$")
+plt.xlabel(r"$\mathbb{P}\{\hat{Y}=1|Y=0, A=a\}$")
+plt.ylabel(r"$\mathbb{P}\{\hat{Y}=1|Y=1, A=a\}$")
 plt.plot([FP_con], [TP_con], marker="+", markersize=15, markeredgecolor="black",
          markerfacecolor="black",
-         label="Optimal EO", mew=3, )
+         label="optimal EO", mew=3, )
 plt.xlim([FP_con-0.05, FP_con+0.05])
 plt.ylim([TP_con-0.05, TP_con+0.05])
-#plt.xlim([0, 1])
-#plt.ylim([0, 1])
-#plt.legend(loc='lower center', fancybox=True, framealpha=0.2)
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.legend(loc='lower center', fancybox=True, framealpha=0.2)
 if save:
     plt.savefig("graphs/ROCcurvefull")
 plt.show()
@@ -423,8 +427,7 @@ if brute:
     print("Accuracy: {}%".format(np.round(100 * acc, 4)))
     """print("Percent of max profit: {}%".format(np.round(100 * profit /
                                                        (profits[A]), 8)))"""
-    inflex = (-(np.sqrt(75 * best_prob**2 - 75*best_prob + 19) - 15*best_prob + 7) /
-                              (30*best_prob - 15)) * (best_T1 - best_T0) + best_T0
+    inflex = (-7+15*best_prob + np.sqrt(76*best_prob**2 - 75*best_prob))
     lip1 = np.abs(
         funcs.phi_smooth(best_T0, best_T1, best_prob, inflex) - funcs.phi_smooth(best_T0, best_T1, best_prob,
                                                                            inflex + eps)) / eps
@@ -433,6 +436,11 @@ if brute:
                                                                            inflex - eps)) / eps
 
     lip = np.max([lip1, lip2])
+    if best_prob == 0.5:
+        inflex = 0.5*(best_T1 - best_T0) + best_T0
+        lip = np.abs(
+        funcs.phi_smooth(best_T0, best_T1, best_prob, inflex) - funcs.phi_smooth(best_T0, best_T1, best_prob,
+                                                                           inflex - eps)) / eps
     print("Lipschitz Constant: {}".format(np.round(lip, 6)))
     print("------------------------------------------")
 
