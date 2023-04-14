@@ -1,0 +1,16 @@
+ ----------------------------------------- 
++                                         +
++       EQUALISED ODDS FOR CLASS 0        +
++_________________________________________+
+
+Solution space size: 1001
+False positive: 0.12323843
+True positives: 0.82652042
+Target False positive: 0.1826192
+Target True positives: 0.817381
+Max profit thresholds: 39.5
+Differences: FP (0.05938077) TP (0.00913942) EO(0.05938077)
+Accuracy: 83.8645%
+Percent of max profit: 100
+------------------------------------------
+

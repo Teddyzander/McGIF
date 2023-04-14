@@ -1,0 +1,16 @@
+ ----------------------------------------- 
++                                         +
++       EQUALISED ODDS FOR CLASS 3        +
++_________________________________________+
+
+Solution space size: 1001
+False positive: 0.19743659
+True positives: 0.85265559
+Target False positive: 0.1826192
+Target True positives: 0.817381
+Max profit thresholds: 37.5
+Differences: FP (0.01481739) TP (0.03527459) EO(0.03527459)
+Accuracy: 84.298%
+Percent of max profit: 100
+------------------------------------------
+
