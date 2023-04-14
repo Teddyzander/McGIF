@@ -1,6 +1,6 @@
 ## McGIF: Model Calibration for Group and Individual Fairness via Preferential Randomisation
 
-![graphical abstract drawio](https://user-images.githubusercontent.com/49641102/232167892-3f622b37-9f08-4c2e-840b-62e98d297074.svg)
+![graphical abstract drawio (1)](https://user-images.githubusercontent.com/49641102/232171673-076d60ad-b951-4962-8bb6-51dd32772f52.svg)
 
 ### Command to run
 
