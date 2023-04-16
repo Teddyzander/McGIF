@@ -33,6 +33,9 @@ parser.add_argument('--show', type=bool, default=False,
 parser.add_argument('--file_name', type=str, default='test_file',
                     help='str: name for file (+_group_<group number>)')
 
+parser.add_argument('--curve', type=str, default='all',
+                    help='str: curve constraints used (all: all, fix: fixed, lin: linear, '
+                         'quad: quadratic, cube: cubic, 4th: 4th order polynomial')
 
 args = parser.parse_args()
 
@@ -42,8 +45,8 @@ if __name__ == '__main__':
     A = args.group
     # density of solution space
     grid = args.grid
-    # brute force best solution?
-    brute = True
+    # which curve(s) should be used
+    curve = args.curve
     # individual fairness constraints
     delta = 0.5  # greatest change in score
     epsilon = 0.05  # greatest change in prob
@@ -194,14 +197,6 @@ if __name__ == '__main__':
     # find the most profitable group
     # find the best performing group (unweighted by cost sensitivity)
 
-    # fix threshold for best performing group, and find mix of thresholds and probabilities to minimise equalised odds
-    # we do this under maximal profits conditions
-    FP_con = np.max(FPs)
-    TP_con = np.max(TPs)
-    if brute:
-        FP_con = 0.1826192
-        TP_con = 0.817381
-
     print(" ----------------------------------------- \n"
           "+                                         +\n"
           "+       EQUALISED ODDS FOR CLASS {}        +\n"
@@ -227,7 +222,7 @@ if __name__ == '__main__':
 
     eps = 1 * 10 ** (-10)
 
-    if brute:
+    if curve == 'all' or curve == 'fix':
         best_T0, best_T1, best_prob, best_FP, \
         best_TP, best_FN, best_TN, sols0, ind, \
         acc, profit = fairness.eo_optimiser(probs, data[:, A + 1] / 100, data[:, 0],
@@ -253,29 +248,7 @@ if __name__ == '__main__':
                                                            (profits[A]), 8)))"""
         print("------------------------------------------")
 
-    """best_T, best_prob, best_FP, best_TP, \
-    best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser_tmax(int(max_profit_T_ind[A]), probs,
-                                                                           data[:, A + 1] / 100, data[:, 0],
-                                                                           raw_data[:, A + 1], FP_con, TP_con)
-    
-    fairness.plot_solution_space(sols0, max_profit_T[A], "graphs/stepspace" + filename, save=save, show=show)
-    
-    print("Fixed probability (Hardt et al) and max profit top threshold")
-    if best_prob > epsilon or 1 - best_prob > epsilon:
-        print("Violates individual fairness constraints")
-    print("FP: {} TP: {} Lower T: {} Upper T: {} prob: {}".format(np.round(best_FP, 8),
-                                                                  np.round(best_TP, 8),
-                                                                  best_T, np.round(max_profit_T[A], 8),
-                                                                  np.round(best_prob, 8)))
-    print("Differences: FP ({}) TP ({}) EO({})".format(np.round(np.abs(best_FP - FP_con), 8),
-                                                       np.round(np.abs(best_TP - TP_con), 8),
-                                                       np.round(sols0[ind], 8)))
-    print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-    # print("Percent of max profit: {}%".format(np.round(100 * profit /
-    #                                                    (profits[A]), 8)))
-    print("------------------------------------------")"""
-
-    if brute:
+    if curve == 'all' or curve == 'lin':
         best_T0, best_T1, best_prob, best_FP, \
         best_TP, best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser(probs, data[:, A + 1] / 100,
                                                                                    data[:, 0],
@@ -306,28 +279,7 @@ if __name__ == '__main__':
                                                            (profits[A]), 8)))"""
         print("------------------------------------------")
 
-    """best_T, best_prob, best_FP, best_TP, \
-    best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser_tmax(int(max_profit_T_ind[A]), probs,
-                                                                           data[:, A + 1] / 100,
-                                                                           data[:, 0], raw_data[:, A + 1], FP_con, TP_con,
-                                                                           funcs.phi)
-    
-    fairness.plot_solution_space(sols0, max_profit_T[A], "graphs/linspace" + filename, save=save, show=show)
-    
-    print("linear function with max profit top threshold")
-    print("FP: {} TP: {} Lower T: {} Upper T: {} prob: {}".format(np.round(best_FP, 8),
-                                                                  np.round(best_TP, 8),
-                                                                  best_T, np.round(max_profit_T[A], 8),
-                                                                  np.round(best_prob, 8)))
-    print("Differences: FP ({}) TP ({}) EO({})".format(np.round(np.abs(best_FP - FP_con), 8),
-                                                       np.round(np.abs(best_TP - TP_con), 8),
-                                                       np.round(sols0[ind], 8)))
-    print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-     #print("Percent of max profit: {}%".format(np.round(100 * profit /
-     #                                                   (profits[A]), 8)))
-    print("------------------------------------------")"""
-
-    if brute:
+    if curve == 'all' or curve == 'quad':
         best_T0, best_T1, best_prob, best_FP, \
         best_TP, best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser(probs, data[:, A + 1] / 100,
                                                                                    data[:, 0],
@@ -358,28 +310,7 @@ if __name__ == '__main__':
                                                            (profits[A]), 8)))"""
         print("------------------------------------------")
 
-    """best_T, best_prob, best_FP, best_TP, \
-    best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser_tmax(int(max_profit_T_ind[A]), probs,
-                                                                           data[:, A + 1] / 100, data[:, 0],
-                                                                           raw_data[:, A + 1], FP_con, TP_con,
-                                                                           funcs.phi_quad)
-    
-    fairness.plot_solution_space(sols0, max_profit_T[A], "graphs/quadpspace" + filename, save=save, show=show)
-    
-    print("smooth boundary function with max profit top threshold")
-    print("FP: {} TP: {} Lower T: {} Upper T: {} prob: {}".format(np.round(best_FP, 8),
-                                                                  np.round(best_TP, 8),
-                                                                  best_T, np.round(max_profit_T[A], 8),
-                                                                  np.round(best_prob, 8)))
-    print("Differences: FP ({}) TP ({}) EO({})".format(np.round(np.abs(best_FP - FP_con), 8),
-                                                       np.round(np.abs(best_TP - TP_con), 8),
-                                                       np.round(sols0[ind], 8)))
-    print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-    # print("Percent of max profit: {}%".format(np.round(100 * profit /
-    #                                                    (profits[A]), 8)))
-    print("------------------------------------------")"""
-
-    if brute:
+    if curve == 'all' or curve == 'cube':
         best_T0, best_T1, best_prob, best_FP, \
         best_TP, best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser(probs, data[:, A + 1] / 100,
                                                                                    data[:, 0],
@@ -412,36 +343,8 @@ if __name__ == '__main__':
                                                            (profits[A]), 8)))"""
         print("------------------------------------------")
 
-    best_T, best_prob, best_FP, best_TP, \
-    best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser_tmax(int(max_profit_T_ind[A]), probs,
-                                                                           data[:, A + 1] / 100,
-                                                                           data[:, 0], raw_data[:, A + 1], FP_con,
-                                                                           TP_con,
-                                                                           funcs.phi_cube)
-
-    """fairness.plot_solution_space(sols0, max_profit_T[A], "graphs/cubespace" + filename, save=save, show=show)
-    
-    print("piecewise smooth function with max profit top threshold")
-    print("FP: {} TP: {} Lower T: {} Upper T: {} prob: {}".format(np.round(best_FP, 8),
-                                                                  np.round(best_TP, 8),
-                                                                  best_T, np.round(max_profit_T[A], 8),
-                                                                  np.round(best_prob, 8)))
-    print("Differences: FP ({}) TP ({}) EO({})".format(np.round(np.abs(best_FP - FP_con), 8),
-                                                       np.round(np.abs(best_TP - TP_con), 8),
-                                                       np.round(sols0[ind], 8)))
-    print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-    # print("Percent of max profit: {}%".format(np.round(100 * profit /
-    #                                                   (profits[A]), 8)))
-    print("------------------------------------------")"""
-
-    probs = np.linspace(2 / 5, 3 / 5, num=grid)
-    best_TP = TPs[A]
-    best_FP = FPs[A]
-    best_prob = 0
-    best_T0 = max_profit_T[A]
-    best_T1 = max_profit_T[A]
-
-    if brute:
+    if curve == 'all' or curve == '4th':
+        probs = np.linspace(2 / 5, 3 / 5, num=grid)
         best_T0, best_T1, best_prob, best_FP, \
         best_TP, best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser(probs, data[:, A + 1] / 100,
                                                                                    data[:, 0],
@@ -459,42 +362,27 @@ if __name__ == '__main__':
         print("Accuracy: {}%".format(np.round(100 * acc, 4)))
         """print("Percent of max profit: {}%".format(np.round(100 * profit /
                                                            (profits[A]), 8)))"""
-        inflex = ((-7 + 15 * best_prob + np.sqrt(76 * best_prob ** 2 - 75 * best_prob + 19)) /
-                  (15 * (2 * best_prob - 1))) * (best_T1 - best_T0) + best_T0
-        lip1 = np.abs(
-            funcs.phi_smooth(best_T0, best_T1, best_prob, inflex) - funcs.phi_smooth(best_T0, best_T1, best_prob,
-                                                                                     inflex + eps)) / eps
-        lip2 = np.abs(
-            funcs.phi_smooth(best_T0, best_T1, best_prob, inflex) - funcs.phi_smooth(best_T0, best_T1, best_prob,
-                                                                                     inflex - eps)) / eps
+        inflex1 = (-(168-360*best_prob) + np.sqrt((168-360*best_prob)**2 - 4 * (360*best_prob - 180) *
+                                                 (60 * best_prob - 24))) / (2 * (360*best_prob - 180))
+        inflex2 = (-(168-360*best_prob) - np.sqrt((168-360*best_prob)**2 - 4 * (360*best_prob - 180) *
+                                                 (60 * best_prob - 24))) / (2 * (360*best_prob - 180))
+        if 0 <= inflex1 <= 1:
+            inflex = inflex1
+        else:
+            inflex = inflex2
 
-        lip = np.max([lip1, lip2])
+        #print(funcs.phi_smooth(0, 1, best_prob, inflex))
+        #print(funcs.phi_smooth(0, 1, best_prob, inflex+eps))
+        lip1 = np.abs(funcs.phi_smooth(0, 1, best_prob, inflex) -
+                      funcs.phi_smooth(0, 1, best_prob, inflex + eps)) / eps
+        lip2 = np.abs(funcs.phi_smooth(0, 1, best_prob, inflex) -
+                      funcs.phi_smooth(0, 1, best_prob, inflex - eps)) / eps
+
+        lip = np.max([lip1 * 1 / (best_T1 - best_T0), lip2 * 1 / (best_T1 - best_T0)])
         if best_prob == 0.5:
             inflex = 0.5 * (best_T1 - best_T0) + best_T0
             lip = np.abs(
                 funcs.phi_smooth(best_T0, best_T1, best_prob, inflex) - funcs.phi_smooth(best_T0, best_T1, best_prob,
                                                                                          inflex - eps)) / eps
-        print("Lipschitz Constant: {}".format(np.round(lip, 6)))
+        print("Lipschitz Constant: {}".format(lip))
         print("------------------------------------------")
-
-    """probs = np.linspace(2 / 5, 3 / 5, num=grid)
-    best_T, best_prob, best_FP, best_TP, \
-    best_FN, best_TN, sols0, ind, acc, profit = fairness.eo_optimiser_tmax(int(max_profit_T_ind[A]), probs,
-                                                                           data[:, A + 1] / 100,
-                                                                           data[:, 0], raw_data[:, A + 1], FP_con, TP_con,
-                                                                           funcs.phi_smooth)
-    
-    fairness.plot_solution_space(sols0, max_profit_T[A], "graphs/smoothspace" + filename, save=save, show=show)
-    
-    print("smooth function p->[0.4,0.6] with max profit top threshold")
-    print("FP: {} TP: {} Lower T: {} Upper T: {} prob: {}".format(np.round(best_FP, 8),
-                                                                  np.round(best_TP, 8),
-                                                                  best_T, np.round(max_profit_T[A], 8),
-                                                                  np.round(best_prob, 8)))
-    print("Differences: FP ({}) TP ({}) EO({})".format(np.round(np.abs(best_FP - FP_con), 8),
-                                                       np.round(np.abs(best_TP - TP_con), 8),
-                                                       np.round(sols0[ind], 8)))
-    print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-    # print("Percent of max profit: {}%".format(np.round(100 * profit /
-    #                                                    (profits[A]), 8)))
-    print("------------------------------------------")"""

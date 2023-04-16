@@ -1,0 +1,47 @@
+ ----------------------------------------- 
++                                         +
++       EQUALISED ODDS FOR CLASS 3        +
++_________________________________________+
+
+Solution space size: 21
+False positive: 0.19743659
+True positives: 0.85265559
+Target False positive: 0.19268521
+Target True positives: 0.82973199
+Max profit thresholds: 37.5
+Differences: FP (0.00475138) TP (0.0229236) EO(0.0229236)
+Accuracy: 84.298%
+Percent of max profit: 100
+------------------------------------------
+
+Fixed probability (Hardt et al)
+Violates individual fairness constraints
+FP: 0.19257217 TP: 0.8296644 Lower T: 16.5 Upper T: 40.5 prob: 0.05
+Differences: FP (0.00011304) TP (6.759e-05) EO(0.00011304)
+Accuracy: 82.5369%
+Lipschitz Constant: 9500000000.0 (theoretically infinite)
+------------------------------------------
+Linear function
+FP: 0.19272901 TP: 0.82986556 Lower T: 27.500000000000004 Upper T: 45.5 prob: 0.35
+Differences: FP (4.379e-05) TP (0.00013357) EO(0.00013357)
+Lipschitz Constant: 0.103176
+Accuracy: 82.5501%
+------------------------------------------
+Smooth boundary function
+FP: 0.1926091 TP: 0.83018716 Lower T: 32.0 Upper T: 78.0 prob: 0.85
+Differences: FP (7.611e-05) TP (0.00045517) EO(0.00045517)
+Lipschitz Constant: 0.246377
+Accuracy: 82.5784%
+------------------------------------------
+Pieceswise smooth function
+FP: 0.19261094 TP: 0.82969681 Lower T: 34.5 Upper T: 78.5 prob: 0.9
+Differences: FP (7.428e-05) TP (3.518e-05) EO(7.428e-05)
+Lipschitz Constant: 0.306823
+Accuracy: 82.5388%
+------------------------------------------
+Smooth function p->[0.4, 0.6]
+FP: 0.19235621 TP: 0.8300509 Lower T: 28.499999999999996 Upper T: 55.00000000000001 prob: 0.6
+Differences: FP (0.00032901) TP (0.00031891) EO(0.00032901)
+Accuracy: 82.5723%
+Lipschitz Constant: 0.0
+------------------------------------------
