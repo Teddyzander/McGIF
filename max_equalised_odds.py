@@ -244,8 +244,6 @@ if __name__ == '__main__':
         lips2 = (1 - best_prob) / eps
         lips = np.max([lips1, lips2])
         print("Lipschitz Constant: {} (theoretically infinite)".format(lips))
-        """print("Percent of max profit: {}%".format(np.round(100 * profit /
-                                                           (profits[A]), 8)))"""
         print("------------------------------------------")
 
     if curve == 'all' or curve == 'lin':
@@ -275,8 +273,6 @@ if __name__ == '__main__':
         lip = np.max([lip1, lip2])
         print("Lipschitz Constant: {}".format(np.round(lip, 6)))
         print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-        """print("Percent of max profit: {}%".format(np.round(100 * profit /
-                                                           (profits[A]), 8)))"""
         print("------------------------------------------")
 
     if curve == 'all' or curve == 'quad':
@@ -306,8 +302,6 @@ if __name__ == '__main__':
         lip = np.max([lip1, lip2])
         print("Lipschitz Constant: {}".format(np.round(lip, 6)))
         print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-        """print("Percent of max profit: {}%".format(np.round(100 * profit /
-                                                           (profits[A]), 8)))"""
         print("------------------------------------------")
 
     if curve == 'all' or curve == 'cube':
@@ -339,8 +333,6 @@ if __name__ == '__main__':
         lip = np.max([lip1, lip2])
         print("Lipschitz Constant: {}".format(np.round(lip, 6)))
         print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-        """print("Percent of max profit: {}%".format(np.round(100 * profit /
-                                                           (profits[A]), 8)))"""
         print("------------------------------------------")
 
     if curve == 'all' or curve == '4th':
@@ -360,19 +352,8 @@ if __name__ == '__main__':
                                                            np.round(np.abs(best_TP - TP_con), 8),
                                                            np.round(sols0[ind], 8)))
         print("Accuracy: {}%".format(np.round(100 * acc, 4)))
-        """print("Percent of max profit: {}%".format(np.round(100 * profit /
-                                                           (profits[A]), 8)))"""
-        inflex1 = (-(168-360*best_prob) + np.sqrt((168-360*best_prob)**2 - 4 * (360*best_prob - 180) *
-                                                 (60 * best_prob - 24))) / (2 * (360*best_prob - 180))
-        inflex2 = (-(168-360*best_prob) - np.sqrt((168-360*best_prob)**2 - 4 * (360*best_prob - 180) *
-                                                 (60 * best_prob - 24))) / (2 * (360*best_prob - 180))
-        if 0 <= inflex1 <= 1:
-            inflex = inflex1
-        else:
-            inflex = inflex2
+        inflex = -(-15 * best_prob + 7 + np.sqrt(75 * best_prob**2 - 75 * best_prob + 19))/(30*best_prob - 15)
 
-        #print(funcs.phi_smooth(0, 1, best_prob, inflex))
-        #print(funcs.phi_smooth(0, 1, best_prob, inflex+eps))
         lip1 = np.abs(funcs.phi_smooth(0, 1, best_prob, inflex) -
                       funcs.phi_smooth(0, 1, best_prob, inflex + eps)) / eps
         lip2 = np.abs(funcs.phi_smooth(0, 1, best_prob, inflex) -
