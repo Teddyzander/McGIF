@@ -1,0 +1,7 @@
+fairlearn==0.7.0
+folktables==0.0.11
+matplotlib @ file:///C:/ci/matplotlib-suite_1647423638658/work
+matplotlib-inline==0.1.3
+numpy @ file:///C:/ci/numpy_and_numpy_base_1649782970434/work
+pandas @ file:///C:/ci/pandas_1650373458095/work
+sklearn==0.0
