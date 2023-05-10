@@ -26,9 +26,9 @@ for i in range(0, len(ywhite)):
 
 warnings.filterwarnings("ignore")
 
-data = np.genfromtxt('data/transrisk_performance_by_race_ssa.csv', delimiter=',')[1:, :]
-cdf = np.genfromtxt('data/transrisk_cdf_by_race_ssa.csv', delimiter=',')[1:, :]
-totals = np.genfromtxt('data/totals.csv', delimiter=',')[1:, 1:]
+data = np.genfromtxt('data/credit_performance.csv', delimiter=',')[1:, :]
+cdf = np.genfromtxt('data/credit_cdf.csv', delimiter=',')[1:, :]
+totals = np.genfromtxt('data/credit_totals.csv', delimiter=',')[1:, 1:]
 total = np.sum(totals)
 colors = ['darkblue', 'red', 'green', 'purple'] #plt.rcParams['axes.prop_cycle'].by_key()['color']
 plt.figure(figsize=(10, 2), dpi=150)

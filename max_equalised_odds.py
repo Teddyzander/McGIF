@@ -37,6 +37,9 @@ parser.add_argument('--curve', type=str, default='all',
                     help='str: curve constraints used (all: all, fix: fixed, lin: linear, '
                          'quad: quadratic, cube: cubic, 4th: 4th order polynomial')
 
+parser.add_argument('--dataset', type=str, default='credit',
+                    help='str: dataset for analysis (credit for creditrisk, compas for COMPAS')
+
 args = parser.parse_args()
 
 if __name__ == '__main__':
@@ -56,15 +59,16 @@ if __name__ == '__main__':
     # show plots ?
     show = args.show
     # compas or credit risk?
+    data_sup = args.dataset
 
     # save print statements to log file
-    filename = args.file_name + "_group_" + str(A)
+    filename = str(grid) + '_grid_' + data_sup + '_' + args.file_name + "_group_" + str(A)
     sys.stdout = Tee(open("logs/" + filename + ".txt", "w"), sys.stdout)
 
     # get data
-    data = np.genfromtxt('data/transrisk_performance_by_race_ssa.csv', delimiter=',')[1:, :]
-    cdf = np.genfromtxt('data/transrisk_cdf_by_race_ssa.csv', delimiter=',')[1:, :]
-    totals = np.genfromtxt('data/totals.csv', delimiter=',')[1:, 1:]
+    data = np.genfromtxt('data/' + data_sup + '_performance.csv', delimiter=',')[1:, :]
+    cdf = np.genfromtxt('data/' + data_sup + '_cdf.csv', delimiter=',')[1:, :]
+    totals = np.genfromtxt('data/' + data_sup + '_totals.csv', delimiter=',')[1:, 1:]
     total = np.sum(totals)
 
     # get raw number of individuals back from data set
@@ -116,12 +120,12 @@ if __name__ == '__main__':
             FP_con = testf
             TP_con = testt
 
-    np.save('FPR.npy', FPR)
-    np.save('TPR.npy', TPR)
-    np.save('FP_con.npy', [FP_con])
-    np.save('TP_con.npy', [TP_con])
+    np.save(data_sup + 'FPR.npy', FPR)
+    np.save(data_sup + 'TPR.npy', TPR)
+    np.save(data_sup + 'FP_con.npy', [FP_con])
+    np.save(data_sup + 'TP_con.npy', [TP_con])
     style = ["dashed", "dotted", "dashdot", "solid"]
-    groups = ["white", "black", "Hispanic", "Asian"]
+    groups = ['Caucasian Male','Caucasian Female','African-American Male','African-American Female']
     colours = ['darkblue', 'red', 'green', 'purple']
     x = np.linspace(0, 1, len(FPR[:, 0]))
     y = np.linspace(1, 0, len(FPR[:, 0]))
@@ -145,11 +149,11 @@ if __name__ == '__main__':
              label="optimal EO", mew=3, )
     plt.xlim([FP_con - 0.05, FP_con + 0.05])
     plt.ylim([TP_con - 0.05, TP_con + 0.05])
-    plt.xlim([0, 1])
-    plt.ylim([0, 1])
+    #plt.xlim([0, 1])
+    #plt.ylim([0, 1])
     plt.legend(loc='lower center', fancybox=True, framealpha=0.2)
     if save:
-        plt.savefig("graphs/ROCcurvefull")
+        plt.savefig("graphs/ROCcurvefull" + data_sup)
     if show:
         plt.show()
     # find maximum profit threshold for each group

@@ -1,0 +1,16 @@
+ ----------------------------------------- 
++                                         +
++       EQUALISED ODDS FOR CLASS 2        +
++_________________________________________+
+
+Solution space size: 101
+False positive: 0.28633222
+True positives: 0.66238164
+Target False positive: 0.28633222
+Target True positives: 0.66238164
+Max profit thresholds: 48.0
+Differences: FP (0.0) TP (0.0) EO(0.0)
+Accuracy: 67.108%
+Percent of max profit: 100
+------------------------------------------
+
