@@ -119,11 +119,6 @@ if __name__ == '__main__':
             dist = np.sqrt((0 - testf) ** 2 + (1 - testt) ** 2)
             FP_con = testf
             TP_con = testt
-
-    np.save(data_sup + 'FPR.npy', FPR)
-    np.save(data_sup + 'TPR.npy', TPR)
-    np.save(data_sup + 'FP_con.npy', [FP_con])
-    np.save(data_sup + 'TP_con.npy', [TP_con])
     style = ["dashed", "dotted", "dashdot", "solid"]
     groups = ['Caucasian Male','Caucasian Female','African-American Male','African-American Female']
     colours = ['darkblue', 'red', 'green', 'purple']
